@@ -3,7 +3,9 @@
  * 
  * Create on 2018年5月25日 下午10:07:24
  */
-package cn.com.mixdata.tools;
+package com.jeck.tools.kvtest;
+
+import com.jeck.tools.StringEqualTest;
 
 /**
  * 
@@ -26,12 +28,18 @@ public class StringEqualTestExtrend extends StringEqualTest
 
 		StringEqualTest stringEqualTest = new StringEqualTest();
 
-		System.out.println(stringEqualTest.st);
+		// System.out.println(stringEqualTest.st);
 
 		StringEqualTestExtrend stringEqualTestExtrend = new StringEqualTestExtrend();
 
 		System.out.println(stringEqualTestExtrend.std);
 
+	}
+
+	public void tm(StringEqualTest stringEqualTest)
+	{
+		System.out.println(stringEqualTest.st);
+		System.out.println(st);
 	}
 }
 

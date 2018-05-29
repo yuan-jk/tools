@@ -1,4 +1,4 @@
-package cn.com.mixdata.tools.kvtest;
+package com.jeck.tools.kvtest;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;

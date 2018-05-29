@@ -1,4 +1,4 @@
-package cn.com.mixdata.tools;
+package com.jeck.tools.kvtest;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -10,6 +10,8 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.text.html.parser.Entity;
+
+import com.jeck.tools.StringEqualTest;
 
 /**
  * Hello world!
@@ -84,7 +86,10 @@ public class App
 		out.println(st.substring(st.indexOf("b"), st.length()));
 
 		StringEqualTest stringEqualTest = new StringEqualTest();
-		out.println(stringEqualTest.st);
+		// out.println(stringEqualTest.st);
+
+		StringEqualTestExtrend stringEqualTestExtrend = new StringEqualTestExtrend();
+		stringEqualTestExtrend.tm(stringEqualTestExtrend);
 
     }
 }

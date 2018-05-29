@@ -3,7 +3,7 @@
  * 
  * Create on 2018年1月8日 上午10:51:11
  */
-package cn.com.mixdata.tools.kvtest;
+package com.jeck.tools.kvtest;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 

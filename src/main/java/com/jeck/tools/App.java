@@ -1,6 +1,7 @@
-package cn.com.mixdata.tools.kvtest;
+package com.jeck.tools;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -10,8 +11,6 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.text.html.parser.Entity;
-
-import cn.com.mixdata.tools.StringEqualTest;
 
 /**
  * Hello world!
@@ -32,7 +31,7 @@ public class App
 		}
 	}
 
-    public static void main( String[] args )
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, IOException
     {
 		String userDir = System.getProperty("user.dir");
 
@@ -86,10 +85,14 @@ public class App
 		out.println(st.substring(st.indexOf("b"), st.length()));
 
 		StringEqualTest stringEqualTest = new StringEqualTest();
-		// out.println(stringEqualTest.st);
+		out.println(stringEqualTest.st);
 
-		StringEqualTestExtrend stringEqualTestExtrend = new StringEqualTestExtrend();
-		stringEqualTestExtrend.tm(stringEqualTestExtrend);
+		out.print(3 / 0);
+
+		ClassInitalization ci = new ClassInitalization();
+
+		// ClassInitalization ci = ClassInitalization.class.newInstance();
+		// String stt = String.class.newInstance();
 
     }
 }

@@ -3,7 +3,7 @@
  * 
  * Create on 2018年1月8日 下午4:17:54
  */
-package cn.com.mixdata.tools.kvtest;
+package com.jeck.tools.kvtest;
 
 import java.io.IOException;
 import java.io.PrintStream;

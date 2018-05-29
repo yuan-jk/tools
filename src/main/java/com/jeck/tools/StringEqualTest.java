@@ -3,7 +3,7 @@
  * 
  * Create on 2018年5月25日 下午10:07:24
  */
-package cn.com.mixdata.tools;
+package com.jeck.tools;
 
 /**
  * 

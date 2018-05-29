@@ -3,7 +3,7 @@
  * 
  * Create on 2018年5月26日 下午1:36:16
  */
-package cn.com.mixdata.tools;
+package com.jeck.tools;
 
 import java.io.PrintStream;
 
