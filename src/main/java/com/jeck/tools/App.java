@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -94,5 +97,13 @@ public class App
 		// ClassInitalization ci = ClassInitalization.class.newInstance();
 		// String stt = String.class.newInstance();
 
+		List<Map<String, String>> lt= new ArrayList<>();
+		
+		List<List<Map<String, String>>> llt = new ArrayList<>();
+		
+		Map<List<String>, Map<String, String>> mp = new HashMap<>();
+		
+		Map<String, HashMap<String, String>> hmp=new HashMap<>();
+		
     }
 }
