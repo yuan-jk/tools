@@ -5,15 +5,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 import java.util.Collections;
->>>>>>> branch 'master' of git@github.com:Jeckyuan/tools.git
 import java.util.HashMap;
-<<<<<<< HEAD
-=======
 import java.util.HashSet;
->>>>>>> branch 'master' of git@github.com:Jeckyuan/tools.git
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
