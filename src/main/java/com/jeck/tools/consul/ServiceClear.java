@@ -15,16 +15,30 @@ public class ServiceClear {
     public static final String CONSUL_HOST = "http://127.0.0.1:8500";
 
     public static String listChecks() throws IOException {
-        JSONArray jsonArray = JSON.parseArray("");
 
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
+        String checkList = "/v1/agent/checks";
 
-        jsonObject.getString("");
 
-        return Request.Get("http://somehost/")
+        String content = Request.Get(CONSUL_HOST + checkList)
                 .connectTimeout(1000)
                 .socketTimeout(1000)
                 .execute().returnContent().asString();
+        // JSONArray jsonArray = JSON.parseArray("");
+        //
+        // JSONObject jsonObject = jsonArray.getJSONObject(0);
+        //
+        // jsonObject.getString("");
+
+        System.out.println(content);
+
+        log.info("check list: " + content);
+
+        return content;
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        listChecks();
 
     }
 
