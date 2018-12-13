@@ -1,5 +1,6 @@
 package com.jeck.tools.orientdb;
 
+import com.glodon.pcop.cim.common.util.CimConstants;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.Dimension;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.Fact;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataServiceBureau.CimDataSpace;
@@ -12,13 +13,21 @@ import com.glodon.pcop.cim.engine.dataServiceEngine.util.exception.CimDataEngine
 import com.glodon.pcop.cim.engine.dataServiceEngine.util.factory.CimDataEngineComponentFactory;
 import com.glodon.pcop.cim.engine.dataServiceFeature.BusinessLogicConstant;
 import com.glodon.pcop.cim.engine.dataServiceFeature.feature.DatasetFeatures;
+import com.glodon.pcop.cim.engine.dataServiceFeature.feature.IndustryTypeFeatures;
+import com.glodon.pcop.cim.engine.dataServiceFeature.feature.InfoObjectFeatures;
+import com.glodon.pcop.cim.engine.dataServiceFeature.vo.IndustryTypeVO;
+import com.glodon.pcop.cim.engine.dataServiceFeature.vo.InfoObjectTypeVO;
 import com.glodon.pcop.cim.engine.dataServiceFeature.vo.PropertyTypeRestrictVO;
 import com.glodon.pcop.cim.engine.dataServiceFeature.vo.PropertyTypeVO;
+import com.glodon.pcop.cim.engine.dataServiceModelAPI.model.*;
+import com.glodon.pcop.cim.engine.dataServiceModelAPI.util.exception.DataServiceModelRuntimeException;
+import com.glodon.pcop.cim.engine.dataServiceModelAPI.util.factory.ModelAPIComponentFactory;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +37,9 @@ public class InfoObjectClear {
     private static Logger log = LoggerFactory.getLogger(InfoObjectClear.class);
 
     private static String spaceName = "pcop-qingdao";
+
+    public static final String defaultIndustryName = "其他";
+    public static final String defaultCreator = "pcop";
 
     public static void listObjectTypes(String objectTypeId) {
 
@@ -205,20 +217,143 @@ public class InfoObjectClear {
         return propertyIds;
     }
 
+    public static String addIndustryType(String tenantId, String spaceName, IndustryTypeVO industryTypeVO) throws DataServiceModelRuntimeException {
+        CIMModelCore cimModelCore = ModelAPIComponentFactory.getCIMModelCore(spaceName, tenantId);
+        IndustryTypes industryTypes = cimModelCore.getIndustryTypes();
+        IndustryType industryType;
+        String parentIndustryTypeId = industryTypeVO.getParentIndustryTypeId();
+        if (StringUtils.isBlank(parentIndustryTypeId)) {
+            industryType = industryTypes.addRootIndustryType(industryTypeVO);
+        } else {
+            industryType = industryTypes.addChildIndustryType(industryTypeVO, parentIndustryTypeId);
+        }
 
-    public static void main(String[] args) {
+        return industryType.getIndustryTypeRID();
+    }
+
+    public static String addObjectType(String tenantId, InfoObjectTypeVO objectTypeVO) throws DataServiceModelRuntimeException {
+        CIMModelCore cimModelCore = ModelAPIComponentFactory.getCIMModelCore(CimConstants.defauleSpaceName, tenantId);
+
+        InfoObjectDefs objectDefs = cimModelCore.getInfoObjectDefs();
+        InfoObjectDef objectDef;
+        if (StringUtils.isBlank(objectTypeVO.getParentObjectTypeName())) {
+            objectDef = objectDefs.addRootInfoObjectDef(objectTypeVO);
+        } else {
+            objectDef = objectDefs.addChildInfoObjectDef(objectTypeVO, objectTypeVO.getParentObjectTypeName());
+        }
+        if (StringUtils.isNotBlank(objectTypeVO.getIndustryTypeId())) {
+            objectDef.linkIndustryType(objectTypeVO.getIndustryTypeId());
+        } else {
+            IndustryTypeVO defaultIndustry = IndustryTypeFeatures.getIndustryTypeByName(CimConstants.defauleSpaceName, defaultIndustryName);
+            if (defaultIndustry != null) {
+                objectDef.linkIndustryType(defaultIndustry.getIndustryTypeId());
+            } else {
+                log.error("默认行业分类：{}，不存在", defaultIndustryName);
+            }
+        }
+        log.info("object type of {} is add", objectDef.getObjectTypeName());
+        return objectDef.getObjectTypeName();
+    }
+
+    public static Map<String, String> addIndustryTypesQD() throws DataServiceModelRuntimeException {
+        IndustryTypeVO typeVOa = new IndustryTypeVO();
+        typeVOa.setIndustryTypeName("城市部件");
+        typeVOa.setIndustryTypeDesc("城市部件");
+        typeVOa.setCreatorId(defaultCreator);
+
+        IndustryTypeVO typeVOb = new IndustryTypeVO();
+        typeVOb.setIndustryTypeName("建筑");
+        typeVOb.setIndustryTypeDesc("建筑");
+        typeVOb.setCreatorId(defaultCreator);
+
+        IndustryTypeVO typeVOc = new IndustryTypeVO();
+        typeVOc.setIndustryTypeName("道路");
+        typeVOc.setIndustryTypeDesc("道路");
+        typeVOc.setCreatorId(defaultCreator);
+
+        IndustryTypeVO typeVOd = new IndustryTypeVO();
+        typeVOd.setIndustryTypeName("其他");
+        typeVOd.setIndustryTypeDesc("其他");
+        typeVOd.setCreatorId(defaultCreator);
+
+        List<IndustryTypeVO> typeVOList = new ArrayList<>();
+        typeVOList.add(typeVOa);
+        typeVOList.add(typeVOb);
+        typeVOList.add(typeVOc);
+        typeVOList.add(typeVOd);
+
+        Map<String, String> idMap = new HashMap<>();
+
+        for (IndustryTypeVO typeVO : typeVOList) {
+            String rid = addIndustryType("2", spaceName, typeVO);
+            idMap.put(typeVO.getIndustryTypeName(), rid);
+        }
+
+        log.info("industry type RID: {}", idMap);
+        return idMap;
+    }
+
+
+    public static void addObjectTypesQD() throws DataServiceModelRuntimeException {
+        InfoObjectTypeVO typeVOa = new InfoObjectTypeVO();
+        typeVOa.setObjectTypeName("QDLittleComponents");
+        typeVOa.setObjectTypeDesc("小品");
+
+        InfoObjectTypeVO typeVOb = new InfoObjectTypeVO();
+        typeVOb.setObjectTypeName("QDTrees");
+        typeVOb.setObjectTypeDesc("树木");
+
+        InfoObjectTypeVO typeVOc = new InfoObjectTypeVO();
+        typeVOc.setObjectTypeName("QDRivers");
+        typeVOc.setObjectTypeDesc("河流");
+
+        List<InfoObjectTypeVO> typeVOList = new ArrayList<>();
+        typeVOList.add(typeVOa);
+        typeVOList.add(typeVOb);
+        typeVOList.add(typeVOc);
+
+        for (InfoObjectTypeVO typeVO : typeVOList) {
+            addObjectType("2", typeVO);
+        }
+
+    }
+
+    public static void linkObjectWithIndustry(CimDataSpace cds, String industryRid, String[] objectTypeIds) throws CimDataEngineRuntimeException, CimDataEngineInfoExploreException {
+        for (String id : objectTypeIds) {
+            boolean flag = InfoObjectFeatures.linkInfoObjectTypeWithIndustryType(cds, id, industryRid);
+            if (flag) {
+                log.info("object type of {} is link to industry of {}", id, industryRid);
+            } else {
+                log.info("object type of {} is not link to industry of {}", id, industryRid);
+            }
+        }
+    }
+
+
+    public static void main(String[] args) throws CimDataEngineInfoExploreException, CimDataEngineRuntimeException {
         // listObjectTypes("cccc");
 
         log.info("====");
 
         CimDataSpace cds = null;
         try {
-            cds = CimDataEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+            // cds = CimDataEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
             // removeAllDimension(cds, "CIM_BUILDIN_INDUSTRYTYPE");
-            deleteObjectType(cds, "cccc");
-        } catch (CimDataEngineInfoExploreException e) {
-            e.printStackTrace();
-        } catch (CimDataEngineRuntimeException e) {
+            // deleteObjectType(cds, "cccc");
+
+            addIndustryTypesQD();
+            addObjectTypesQD();
+
+            String[] bj = {"LampPostDev", "envmonitordevice", "ledDev", "publicBroadcastingDev", "wifiDev", "cameraDev", "guideDisplay", "parking"};
+
+            String[] jz = {"businessBuilding"};
+
+            String[] dl = {"Road"};
+
+            String[] qt = {"QDLittleComponents","QDTrees","QDRivers"};
+
+        } catch (DataServiceModelRuntimeException e) {
+
             e.printStackTrace();
         } finally {
             if (cds != null) {
