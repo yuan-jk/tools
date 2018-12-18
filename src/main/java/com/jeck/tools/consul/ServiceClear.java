@@ -3,7 +3,6 @@ package com.jeck.tools.consul;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
 
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class ServiceClear {
     }
 
     public static void main(String[] args) throws IOException {
-        String serviceName = "pcop-spacialimportsvc";
+        String serviceName = "service_name";
         String status = "critical";
 
         listChecks(serviceName, status);
