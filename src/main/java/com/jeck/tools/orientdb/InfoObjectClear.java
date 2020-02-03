@@ -19,7 +19,6 @@ import com.glodon.pcop.cim.engine.dataServiceFeature.vo.PropertyTypeVO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.info.InfoEndpoint;
 
 import java.util.ArrayList;
 import java.util.HashMap;
