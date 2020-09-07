@@ -1,3 +1,4 @@
 /target/
 /.idea/
 /CacheDir/
+/orientdb-hook/src/main/webapp/
