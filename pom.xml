@@ -173,7 +173,18 @@
             <artifactId>lucene-analyzers-common</artifactId>
             <version>7.3.0</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/net.postgis/postgis-jdbc -->
+        <dependency>
+            <groupId>net.postgis</groupId>
+            <artifactId>postgis-jdbc</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.postgis/postgis-geometry -->
+        <dependency>
+            <groupId>net.postgis</groupId>
+            <artifactId>postgis-geometry</artifactId>
+            <version>2.5.0</version>
+        </dependency>
 
     </dependencies>
     <build>
@@ -219,6 +230,16 @@
             </snapshots>
             <releases>
                 <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>postgis</id>
+            <url>http://repo.orbisgis.org/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
             </releases>
         </repository>
     </repositories>
