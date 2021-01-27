@@ -9,6 +9,7 @@
         <module>orientdb-hook</module>
         <module>orientdb-postgis-etl</module>
         <module>general-utilities</module>
+        <module>cim-util</module>
     </modules>
     <packaging>pom</packaging>
 
