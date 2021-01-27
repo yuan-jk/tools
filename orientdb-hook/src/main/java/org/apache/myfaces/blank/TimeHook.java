@@ -2,14 +2,13 @@ package org.apache.myfaces.blank;
 
 
 import com.orientechnologies.orient.core.hook.ODocumentHookAbstract;
-import com.orientechnologies.orient.core.hook.ORecordHook;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
 import java.util.Date;
 import java.util.Set;
 
 
-public class TimeHook extends ODocumentHookAbstract implements ORecordHook {
+public class TimeHook extends ODocumentHookAbstract {
 
     public TimeHook() {
         setIncludeClasses("GLD_IH_FACT");
@@ -57,7 +56,7 @@ public class TimeHook extends ODocumentHookAbstract implements ORecordHook {
 //				|| (iDocument.getClassName().startsWith(TimeConstants.GLD_DIMENSION_))) {
         Date now = new Date();
         iDocument.save();
-        System.out.println("==="+iDocument.getIdentity());
+        System.out.println("===" + iDocument.getIdentity());
 //        iDocument.field(TimeConstants.CREATE_TIME + "1", now);
 //        iDocument.field(TimeConstants.UPDATE_TIME + "1", now);
 //        iDocument.setProperty(TimeConstants.CREATE_TIME, now);
