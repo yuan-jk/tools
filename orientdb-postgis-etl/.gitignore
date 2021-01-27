@@ -2,6 +2,7 @@
 /logs/
 /data/logs/
 !.mvn/wrapper/maven-wrapper.jar
+/orientdb-postgis-etl-0.0.1-SNAPSHOT.jar
 
 ### STS ###
 .apt_generated

@@ -2,6 +2,7 @@
 /logs/
 /data/logs/
 !.mvn/wrapper/maven-wrapper.jar
+/src/main/webapp/
 
 ### STS ###
 .apt_generated
