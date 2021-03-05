@@ -195,4 +195,15 @@ public class ShpFileDataLoaderTest {
     }
 
 
+    @Test
+    public void readShpGeoInfoTest() throws IOException {
+        String shpFile = "G:\\tmp\\全岛区划结果\\gongnengqu.shp";
+        String mapKey = "OBJECTID";
+
+        ShpFileDataLoader.readShpGeoInfo(shpFile, mapKey);
+
+
+    }
+
+
 }
