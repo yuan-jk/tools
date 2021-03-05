@@ -24,5 +24,31 @@ public class ExpressionUtil {
         SHORT, INT, LONG, FLOAT, DOUBLE, BOOLEAN, STRING, TIMESTAMP
     }
 
+    enum OperatorEnum {
+        BetweenFilteringItem("BETWEEN"),
+        EqualFilteringItem("="),
+        GreaterThanFilteringItem(">="),
+        GreaterThanEqualFilteringItem("<"),
+        LessThanFilteringItem("<"),
+        LessThanEqualFilteringItem("<="),
+        NotEqualFilteringItem("!="),
+        SimilarFilteringItem("LIKE");
+
+        private String abbreviation;
+
+        public String getAbbreviation() {
+            return abbreviation;
+        }
+
+        private OperatorEnum(String abb) {
+            this.abbreviation = abb;
+        }
+    }
+
+    enum LogicalOperatorEnum {
+        AND, OR
+    }
+
+
 }
 

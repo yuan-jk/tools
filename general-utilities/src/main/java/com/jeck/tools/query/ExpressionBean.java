@@ -2,50 +2,49 @@ package com.jeck.tools.query;
 
 import java.util.List;
 
+import com.jeck.tools.query.ExpressionUtil.PropertyTypeEnum;
+import com.jeck.tools.query.ExpressionUtil.OperatorEnum;
+import com.jeck.tools.query.ExpressionUtil.LogicalOperatorEnum;
+
 /**
  * @author yuanjk
  * @version 21/3/4
  */
 public class ExpressionBean {
 
-    private String operator;
+    private LogicalOperatorEnum logicalOperator;
     private List<ExpressionBean> subExpression;
-    private String type;
-    private String category;
-    private String field;
-    private String value_type;
-    private String compare;
+    private String objectTypeId;
+    private String dataSet;
+    private String property;
+    private PropertyTypeEnum valueType;
+    private OperatorEnum operator;
     private String value;
 
-    public ExpressionBean(String operator, List<ExpressionBean> subExpression) {
-        this.operator = operator;
+    public ExpressionBean(LogicalOperatorEnum operator, List<ExpressionBean> subExpression) {
+        this.logicalOperator = operator;
         this.subExpression = subExpression;
     }
 
-    public ExpressionBean(String operator, String type, String category, String field, String value_type,
-                          String compare, String value) {
+    public ExpressionBean(String objectTypeId, String dataSet, String property,
+                          PropertyTypeEnum valueType, OperatorEnum operator, String value) {
+        this.objectTypeId = objectTypeId;
+        this.dataSet = dataSet;
+        this.property = property;
+        this.valueType = valueType;
         this.operator = operator;
-        this.type = type;
-        this.category = category;
-        this.field = field;
-        this.value_type = value_type;
-        this.compare = compare;
         this.value = value;
-    }
-
-    public ExpressionBean(List<ExpressionBean> subExpression) {
-        this.subExpression = subExpression;
     }
 
     public ExpressionBean() {
     }
 
-    public String getOperator() {
-        return operator;
+    public LogicalOperatorEnum getLogicalOperator() {
+        return logicalOperator;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setLogicalOperator(LogicalOperatorEnum logicalOperator) {
+        this.logicalOperator = logicalOperator;
     }
 
     public List<ExpressionBean> getSubExpression() {
@@ -56,44 +55,44 @@ public class ExpressionBean {
         this.subExpression = subExpression;
     }
 
-    public String getType() {
-        return type;
+    public String getObjectTypeId() {
+        return objectTypeId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setObjectTypeId(String objectTypeId) {
+        this.objectTypeId = objectTypeId;
     }
 
-    public String getCategory() {
-        return category;
+    public String getDataSet() {
+        return dataSet;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDataSet(String dataSet) {
+        this.dataSet = dataSet;
     }
 
-    public String getField() {
-        return field;
+    public String getProperty() {
+        return property;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setProperty(String property) {
+        this.property = property;
     }
 
-    public String getValue_type() {
-        return value_type;
+    public PropertyTypeEnum getValueType() {
+        return valueType;
     }
 
-    public void setValue_type(String value_type) {
-        this.value_type = value_type;
+    public void setValueType(PropertyTypeEnum valueType) {
+        this.valueType = valueType;
     }
 
-    public String getCompare() {
-        return compare;
+    public OperatorEnum getOperator() {
+        return operator;
     }
 
-    public void setCompare(String compare) {
-        this.compare = compare;
+    public void setOperator(OperatorEnum operator) {
+        this.operator = operator;
     }
 
     public String getValue() {
@@ -107,13 +106,13 @@ public class ExpressionBean {
     @Override
     public String toString() {
         return "ExpressionBean{" +
-                "operator='" + operator + '\'' +
+                "logicalOperator='" + logicalOperator + '\'' +
                 ", subExpression=" + subExpression +
-                ", type='" + type + '\'' +
-                ", category='" + category + '\'' +
-                ", field='" + field + '\'' +
-                ", value_type='" + value_type + '\'' +
-                ", compare='" + compare + '\'' +
+                ", objectTypeId='" + objectTypeId + '\'' +
+                ", dataSet='" + dataSet + '\'' +
+                ", property='" + property + '\'' +
+                ", valueType=" + valueType +
+                ", operator=" + operator +
                 ", value='" + value + '\'' +
                 '}';
     }

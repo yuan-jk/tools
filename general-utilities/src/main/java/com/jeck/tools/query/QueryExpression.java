@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.jeck.tools.query.ExpressionUtil.PropertyTypeEnum;
+import com.jeck.tools.query.ExpressionUtil.OperatorEnum;
+import com.jeck.tools.query.ExpressionUtil.LogicalOperatorEnum;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,27 +26,32 @@ public class QueryExpression {
 
 
     public static String serializeObject() {
-        ExpressionBean eb1 = new ExpressionBean(null, "property", "企业招标行为", "总次数", "int", ">=", "123");
-        ExpressionBean eb2 = new ExpressionBean(null, "property", "企业招标行为", "总金额", "double", "<", "9999.9");
+        ExpressionBean eb1 = new ExpressionBean("company", "企业招标行为", "总次数", PropertyTypeEnum.INT,
+                OperatorEnum.GreaterThanFilteringItem, "123");
+        ExpressionBean eb2 = new ExpressionBean("company", "营业收入", "总金额", PropertyTypeEnum.DOUBLE,
+                OperatorEnum.GreaterThanEqualFilteringItem, "9999.9");
 
         ExpressionBean[] ea12 = {eb1, eb2};
-        ExpressionBean eb12 = new ExpressionBean("and", Arrays.asList(ea12));
+        ExpressionBean eb12 = new ExpressionBean(LogicalOperatorEnum.AND, Arrays.asList(ea12));
 
-        ExpressionBean eb3 = new ExpressionBean(null, "property", "企业注册信息", "industry", "string", "=", "9999.9");
-        ExpressionBean eb4 = new ExpressionBean(null, "property", "企业注册信息", "农业", "string", "like", "122");
+        ExpressionBean eb3 = new ExpressionBean("company", "企业注册信息", "注册地址", PropertyTypeEnum.STRING,
+                OperatorEnum.SimilarFilteringItem, "北京");
+        ExpressionBean eb4 = new ExpressionBean("company", "企业注册信息", "办公地址", PropertyTypeEnum.STRING,
+                OperatorEnum.SimilarFilteringItem, "北京");
 
         ExpressionBean[] ea34 = {eb3, eb4};
-        ExpressionBean eb34 = new ExpressionBean("and", Arrays.asList(ea34));
+        ExpressionBean eb34 = new ExpressionBean(LogicalOperatorEnum.OR, Arrays.asList(ea34));
 
-        ExpressionBean eb5 = new ExpressionBean(null, "property", "企业注册信息", "beijing", "long", "in", "666");
+        ExpressionBean eb5 = new ExpressionBean("company", "企业注册信息", "创建时间", PropertyTypeEnum.TIMESTAMP,
+                OperatorEnum.BetweenFilteringItem, "946656000000,1577808000000");
 
         ExpressionBean[] ea345 = {eb34, eb5};
 
-        ExpressionBean eb345 = new ExpressionBean("and", Arrays.asList(ea345));
+        ExpressionBean eb345 = new ExpressionBean(LogicalOperatorEnum.AND, Arrays.asList(ea345));
 
         ExpressionBean[] ea12345 = {eb12, eb345};
 
-        ExpressionBean eb = new ExpressionBean("and", Arrays.asList(ea12345));
+        ExpressionBean eb = new ExpressionBean(LogicalOperatorEnum.AND, Arrays.asList(ea12345));
 
         String js = JSON.toJSONString(eb);
         System.out.println(js);
@@ -50,7 +59,7 @@ public class QueryExpression {
     }
 
     public static String deserializeObject() {
-        String input = "{\"operator\":\"and\",\"subExpression\":[{\"operator\":\"and\",\"subExpression\":[{\"category\":\"企业招标行为\",\"compare\":\">=\",\"field\":\"总次数\",\"type\":\"property\",\"value\":\"123\",\"value_type\":\"int\"},{\"category\":\"企业招标行为\",\"compare\":\"<\",\"field\":\"总金额\",\"type\":\"property\",\"value\":\"9999.9\",\"value_type\":\"double\"}]},{\"operator\":\"and\",\"subExpression\":[{\"operator\":\"and\",\"subExpression\":[{\"category\":\"企业注册信息\",\"compare\":\"=\",\"field\":\"industry\",\"type\":\"property\",\"value\":\"9999.9\",\"value_type\":\"string\"},{\"category\":\"企业注册信息\",\"compare\":\"like\",\"field\":\"农业\",\"type\":\"property\",\"value\":\"122\",\"value_type\":\"string\"}]},{\"category\":\"企业注册信息\",\"compare\":\"in\",\"field\":\"beijing\",\"type\":\"property\",\"value\":\"666\",\"value_type\":\"long\"}]}]}\n";
+        String input = "{\"logicalOperator\":\"AND\",\"subExpression\":[{\"logicalOperator\":\"AND\",\"subExpression\":[{\"dataSet\":\"企业招标行为\",\"objectTypeId\":\"company\",\"operator\":\"GreaterThanFilteringItem\",\"property\":\"总次数\",\"value\":\"123\",\"valueType\":\"INT\"},{\"dataSet\":\"营业收入\",\"objectTypeId\":\"company\",\"operator\":\"GreaterThanEqualFilteringItem\",\"property\":\"总金额\",\"value\":\"9999.9\",\"valueType\":\"DOUBLE\"}]},{\"logicalOperator\":\"AND\",\"subExpression\":[{\"logicalOperator\":\"OR\",\"subExpression\":[{\"dataSet\":\"企业注册信息\",\"objectTypeId\":\"company\",\"operator\":\"SimilarFilteringItem\",\"property\":\"注册地址\",\"value\":\"北京\",\"valueType\":\"STRING\"},{\"dataSet\":\"企业注册信息\",\"objectTypeId\":\"company\",\"operator\":\"SimilarFilteringItem\",\"property\":\"办公地址\",\"value\":\"北京\",\"valueType\":\"STRING\"}]},{\"dataSet\":\"企业注册信息\",\"objectTypeId\":\"company\",\"operator\":\"BetweenFilteringItem\",\"property\":\"创建时间\",\"value\":\"946656000000,1577808000000\",\"valueType\":\"TIMESTAMP\"}]}]}\n";
 
         ExpressionBean eb = JSON.parseObject(input, ExpressionBean.class);
         System.out.println(expressionParser(eb));
@@ -61,7 +70,7 @@ public class QueryExpression {
         StringBuilder sb = new StringBuilder();
         List<ExpressionBean> subExpList = eb.getSubExpression();
         if (CollectionUtils.isNotEmpty(subExpList)) {
-            String operator = eb.getOperator();
+            String operator = eb.getLogicalOperator().toString();
             List<String> subCondList = new ArrayList<>();
             subExpList.forEach(ep -> subCondList.add(expressionParser(ep)));
 
@@ -85,10 +94,11 @@ public class QueryExpression {
             } else {
                 System.out.println("sub condition is empty");
             }
-        } else if (StringUtils.isNotBlank(eb.getField())) {
-            sb.append(" ").append(eb.getField());
-            sb.append(" ").append(eb.getCompare());
-            sb.append(" '").append(eb.getValue()).append("'");
+        } else if (StringUtils.isNotBlank(eb.getProperty())) {
+            FilterInterface baseFilter = FilterFactory
+                    .createFilter(eb.getDataSet(), eb.getProperty(), eb.getOperator(), eb.getValueType(),
+                            eb.getValue());
+            sb.append(baseFilter.getCondition());
         } else {
             System.out.println("error ");
         }
