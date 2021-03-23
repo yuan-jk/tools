@@ -15,7 +15,8 @@ public class IotEquipmentAndTreeRelationTest extends TestCase {
         super.setUp();
 
         PropertyHandler.map = OrientdbConfigUtil.getParameters();
-        PropertyHandler.map.put(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION, "remote:39.106.23.94:11452/");
+        PropertyHandler.map.put(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION, "remote:192.168.200.124/");
+//        PropertyHandler.map.put(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION, "remote:39.106.23.94:11452/");
 //        PropertyHandler.map.put(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION, "remote:localhost/");
     }
 

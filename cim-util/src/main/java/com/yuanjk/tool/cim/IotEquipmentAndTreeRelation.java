@@ -1,9 +1,6 @@
 package com.yuanjk.tool.cim;
 
-import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.DimensionType;
-import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.Fact;
-import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.Relation;
-import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.RelationType;
+import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.*;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataServiceBureau.CimDataSpace;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataWarehouse.ExploreParameters;
 import com.glodon.pcop.cim.engine.dataServiceEngine.util.exception.CimDataEngineDataMartException;
@@ -18,7 +15,8 @@ import java.util.List;
 public class IotEquipmentAndTreeRelation {
     private static final Logger log = LoggerFactory.getLogger(IotEquipmentAndTreeRelation.class);
 
-    public static boolean addRelationType(CimDataSpace cds, String relationTypeId) throws CimDataEngineDataMartException {
+    public static boolean addRelationType(CimDataSpace cds, String relationTypeId)
+            throws CimDataEngineDataMartException {
         if (cds.hasRelationType(relationTypeId)) {
             log.info("relation type of [{}] is already exists!", relationTypeId);
             return true;
@@ -51,6 +49,14 @@ public class IotEquipmentAndTreeRelation {
                 int targetFactSize = targetFacts.size();
                 for (int i = 0; i < sourceFactSize; i++) {
                     Fact sourceFact = sourceFacts.get(i);
+                    List<Relation> relationList = sourceFact
+                            .getAllSpecifiedRelations(relationType, RelationDirection.TWO_WAY);
+
+                    if (CollectionUtils.isNotEmpty(relationList)) {
+                        log.info("relation is already exists between relation id: [{}]", relationList.get(0).getId());
+                        continue;
+                    }
+
                     Fact targetFact = targetFacts.get(i % targetFactSize);
                     Relation relation = sourceFact.addToRelation(targetFact, relationType);
                     if (relation != null) {
