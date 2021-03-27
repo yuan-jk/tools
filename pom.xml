@@ -11,6 +11,7 @@
         <module>general-utilities</module>
         <module>cim-util</module>
         <module>ignite-test</module>
+        <module>geo-crs</module>
     </modules>
     <packaging>pom</packaging>
 
