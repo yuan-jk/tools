@@ -38,6 +38,12 @@
             <artifactId>gt-main</artifactId>
             <version>${geotools.version}</version>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.locationtech</groupId>-->
+<!--            <artifactId>jts</artifactId>-->
+<!--            <version>1.13</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
