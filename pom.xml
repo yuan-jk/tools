@@ -12,6 +12,7 @@
         <module>cim-util</module>
         <module>ignite-test</module>
         <module>geo-crs</module>
+        <module>json-util</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -29,7 +30,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13</version>
             <scope>test</scope>
         </dependency>
 
