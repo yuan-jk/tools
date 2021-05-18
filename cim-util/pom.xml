@@ -11,9 +11,7 @@
 
     <artifactId>cim-util</artifactId>
     <packaging>pom</packaging>
-    <modules>
-        <module>crs</module>
-    </modules>
+
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
