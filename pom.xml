@@ -13,6 +13,7 @@
         <module>ignite-test</module>
         <module>geo-crs</module>
         <module>json-util</module>
+        <module>orient-kafka-hook</module>
     </modules>
     <packaging>pom</packaging>
 
