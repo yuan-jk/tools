@@ -1,9 +1,11 @@
 package com.yuanjk.geo;
 
+import org.geotools.referencing.ReferencingFactoryFinder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.crs.CRSAuthorityFactory;
 
 import static org.junit.Assert.*;
 
@@ -39,6 +41,16 @@ public class CrsTransformTest {
 //        String epsgCode1 = "EPSG:4326";
 
     }
+
+    @Test
+    public void authorityTest() throws FactoryException {
+        CRSAuthorityFactory factory = ReferencingFactoryFinder.getCRSAuthorityFactory("EPSG", null);
+
+        factory.getAuthority().getIdentifiers().forEach(i -> System.out.println(i));
+
+//        CoordinateReferenceSystem crs = factory.createCoordinateReferenceSystem("4326");
+    }
+
 
     @Test
     public void crsToWktFormat() {
