@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--
+          Alter configuration below as needed.
+      -->
+    <bean id="grid.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+        <property name="clientMode" value="true"/>
+        <property name="igniteInstanceName" value="cim-analysis-ignite"/>
+        <property name="discoverySpi">
+            <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+                <property name="localAddress" value="10.2.112.68"/>
+                <!-- Initial local port to listen to. -->
+                <property name="localPort" value="43500"/>
+                <!-- Setting up IP finder for this cluster -->
+                <property name="ipFinder">
+                    <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+                        <property name="addresses">
+                            <list>
+                                <!--                <value>10.0.168.52:43500</value>-->
+                                <value>10.0.168.19:43500</value>
+                                <!-- <value>10.0.168.45:43500</value> -->
+                            </list>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+
+        <property name="communicationSpi">
+            <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
+                <property name="localPort" value="43100"/>
+            </bean>
+        </property>
+
+        <property name="dataStorageConfiguration">
+            <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
+                <!-- Redefining the default region's settings -->
+                <property name="defaultDataRegionConfiguration">
+                    <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
+                        <property name="name" value="Default_DataStore_Region"/>
+                        <!-- Setting the size of the default region to 5GB. -->
+                        <property name="maxSize" value="#{2L * 1024 * 1024 * 1024}"/>
+                        <!-- When persistence is enabled, data and indexes are stored both in memory and on disk across all the cluster nodes. -->
+                        <property name="persistenceEnabled" value="false"/>
+                    </bean>
+                </property>
+
+                <property name="dataRegionConfigurations">
+                    <list>
+                        <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
+                            <property name="name" value="Main_DataStore_Region"/>
+                            <property name="initialSize" value="#{2L * 1024 * 1024 * 1024}"/>
+                            <property name="maxSize" value="#{8L * 1024 * 1024 * 1024}"/>
+                            <property name="pageEvictionMode" value="RANDOM_2_LRU"/>
+                            <property name="persistenceEnabled" value="true"/>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
+
+        <property name="cacheConfiguration">
+            <list>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="name" value="CIM_STUDY"/>
+                    <property name="dataRegionName" value="Main_DataStore_Region"/>
+                </bean>
+            </list>
+        </property>
+
+        <property name="sqlConfiguration">
+            <bean class="org.apache.ignite.configuration.SqlConfiguration">
+                <property name="sqlSchemas">
+                    <list>
+                        <value>CIM_STUDY</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+
+        <!-- <property name="cacheConfiguration">
+          <list>
+            <bean class="org.apache.ignite.configuration.CacheConfiguration">
+              <property name="name" value="SampleCache"/>
+              <property name="dataRegionName" value="40MB_Region_Eviction"/>
+            </bean>
+          </list>
+        </property> -->
+
+    </bean>
+</beans>
