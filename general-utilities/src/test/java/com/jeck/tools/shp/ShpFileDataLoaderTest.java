@@ -3,6 +3,7 @@ package com.jeck.tools.shp;
 import ch.qos.logback.classic.Level;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.Fact;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataServiceBureau.CimDataSpace;
+import com.glodon.pcop.cim.engine.dataServiceEngine.dataServiceBureauImpl.OrientDBCimDataSpaceImpl;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataWarehouse.ExploreParameters;
 import com.glodon.pcop.cim.engine.dataServiceEngine.dataWarehouse.InformationExplorer;
 import com.glodon.pcop.cim.engine.dataServiceEngine.util.config.PropertyHandler;
@@ -35,13 +36,18 @@ public class ShpFileDataLoaderTest {
 
     //    private static String tenantId = "1";
     private static String tenantId = null;
-    private static String cimSpaceName = "pcopcim";
-    private static String objectTypeId = "test_physical_equipments_20210302";
-    private static String shpFile = "G:\\data\\geospatial_data\\广阳岛\\测试数据\\physical_equipments.shp";
+    private static String cimSpaceName = "gyd";
+//    private static String objectTypeId = "gyd_road_center_lines_0816";
+    private static String objectTypeId = "gyd_road_center_lines";
+    //    private static String shpFile = "G:\\data\\geospatial_data\\广阳岛\\测试数据\\physical_equipments.shp";
+    private static String shpFile = "G:\\data\\geospatial_data\\广阳岛\\道路中心线\\gyd_road_center_lines.shp";
 
     @Before
     public void setUp() throws Exception {
         PropertyHandler.map = OrientdbConfigUtil.getParameters();
+//        PropertyHandler.map.put(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION, "remote:10.2.112.43/");
+//        PropertyHandler.map.put(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION, "remote:39.106.23.94:11452/");
+        PropertyHandler.map.put(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION, "remote:192.168.200.124/");
         Logger rootLogger = LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
         ((ch.qos.logback.classic.Logger) rootLogger).setLevel(Level.INFO);
     }
@@ -108,6 +114,10 @@ public class ShpFileDataLoaderTest {
             System.out.println("Structure map: " + (new Gson()).toJson(structureMap));
 
             InfoObjectDef infoObjectDef = ShpFileDataLoader.createObjectTypeAndDataSet(tenantId, objectTypeId, structureMap, cimModelCore);
+
+//            infoObjectDef
+
+            ((OrientDBCimDataSpaceImpl) cds).getGraph().getVertexType("").truncate();
 
             ShpFileDataLoader.contentInsert(infoObjectDef, shpFile);
 
