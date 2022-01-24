@@ -4,7 +4,9 @@ import com.yuanjk.ignite.util.MemoryTableUtil;
 import com.yuanjk.ignite.util.SpatialDataInfo;
 import com.yuanjk.ignite.util.SpatialDataMaintainUtil;
 import org.apache.ignite.Ignite;
+import org.apache.ignite.IgniteCluster;
 import org.apache.ignite.Ignition;
+import org.apache.ignite.cluster.ClusterState;
 
 import java.io.File;
 
@@ -16,7 +18,12 @@ public class CreateTableUtil {
 
     public static void main(String[] args) {
         Ignite ignite = Ignition.start("cim-config.xml");
-        ignite.active(true);
+
+        IgniteCluster igniteCluster = ignite.cluster();
+        if (!igniteCluster.state().active()) {
+            igniteCluster.state(ClusterState.ACTIVE);
+        }
+//        ignite.active(true);
 //        IgniteCluster igniteCluster = IgniteClust
 //        IgniteCache cache = ignite.getOrCreateCache("CIM_STUDY");
         String tableName = "test_table";
