@@ -15,6 +15,7 @@
         <module>json-util</module>
         <module>orient-kafka-hook</module>
         <module>my-ignite</module>
+        <module>my-spark</module>
     </modules>
     <packaging>pom</packaging>
 
