@@ -13,7 +13,8 @@ public class OrientDbToolsTest {
     @Before
     public void setUp() throws Exception {
 //        OrientDbTools.openDatabasePool("remote:10.0.104.230", "pcopcim", "root", "gldokok");
-        OrientDbTools.openDatabasePool("remote:10.2.112.47", "pcopcim-20210922020002", "root", "td");
+//        OrientDbTools.openDatabasePool("remote:10.2.112.47", "pcopcim-20210922020002", "root", "td");
+        OrientDbTools.openDatabasePool("remote:192.168.200.124", "gyd", "root", "wyc");
     }
 
     @After
@@ -27,7 +28,7 @@ public class OrientDbToolsTest {
 
     @Test
     public void listAllCls() {
-        String filePath = "G:\\tmp\\fuzhou-230-all-classes-0923.txt";
+        String filePath = "G:\\tmp\\gyd-shengchanhuanjing-all-classes-0412.txt";
         OrientDbTools.listAllCls(OrientDbTools.getDatabase(), filePath);
 
     }

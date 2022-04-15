@@ -46,9 +46,21 @@ public class SaveInstancesToFileTest {
 //        String tableName = "GLD_IH_FACT_viewpoint";
 //        String filePath = "GLD_IH_FACT_viewpoint";
 
-        String tableName = "GLD_IH_FACT_region_point";
-        String filePath = "GLD_IH_FACT_region_point";
+//        String tableName = "GLD_IH_FACT_region_point";
+//        String filePath = "GLD_IH_FACT_region_point";
 
-        SaveInstancesToFile.saveToFile(database, tableName, filePath);
+//        String tableName = "GLD_IH_FACT_SZZMLD";
+//        String filePath = "GLD_IH_FACT_SZZMLD";
+
+//        String tableName = "GLD_IH_FACT_PhysicalModelClassification";
+//        String filePath = "GLD_IH_FACT_PhysicalModelClassification";
+
+//        String tableName = "GLD_IH_FACT_PhysicProductModel";
+//        String filePath = "GLD_IH_FACT_PhysicProductModel";
+
+        String tableName = "GLD_IH_FACT_SZZGGJ";
+        String filePath = "智慧灯杆";
+        String[] columns = {"ID", "NAME", "CIM_GeographicInformation", "installationRoad"};
+        SaveInstancesToFile.saveToFile(database, tableName, filePath,columns);
     }
 }
