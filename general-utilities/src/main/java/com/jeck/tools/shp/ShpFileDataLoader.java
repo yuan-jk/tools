@@ -64,7 +64,8 @@ public class ShpFileDataLoader {
                 SimpleFeature feature = features.next();
                 //add geometry property
                 Geometry geometry = (Geometry) feature.getDefaultGeometry();
-                dataValues.put(BusinessLogicConstant.GeographicInformation_PROPERTY_TYPE_ID, (new WKTWriter2()).writeFormatted(geometry).replaceAll("\n", ""));
+                dataValues.put(BusinessLogicConstant.GeographicInformation_PROPERTY_TYPE_ID,
+                        (new WKTWriter2()).writeFormatted(geometry).replaceAll("\n", ""));
                 //非空间类型
                 //add other properties
                 for (Property property : feature.getProperties()) {
@@ -158,7 +159,8 @@ public class ShpFileDataLoader {
         List<AttributeDescriptor> attributeDescriptorList = featureType.getAttributeDescriptors();
 
         Map<String, String> structureMap = new HashMap<>();
-        structureMap.put(BusinessLogicConstant.GeographicInformation_PROPERTY_TYPE_ID, BusinessLogicConstant.GeographicInformation_PROPERTY_TYPE_ID);
+        structureMap.put(BusinessLogicConstant.GeographicInformation_PROPERTY_TYPE_ID,
+                BusinessLogicConstant.GeographicInformation_PROPERTY_TYPE_ID);
         for (AttributeDescriptor attributeDescriptor : attributeDescriptorList) {
             OType oType = OType.getTypeByClass(attributeDescriptor.getType().getBinding());
             String propertyName = attributeDescriptor.getName().toString();
@@ -203,7 +205,7 @@ public class ShpFileDataLoader {
                 rowNum++;
             }
             log.info("read record size: [{}]", rowNum);
-        }finally {
+        } finally {
             if (dataStore != null) {
                 dataStore.dispose();
             }

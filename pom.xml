@@ -13,6 +13,10 @@
         <module>ignite-test</module>
         <module>geo-crs</module>
         <module>data-util</module>
+        <module>json-util</module>
+        <module>orient-kafka-hook</module>
+        <module>my-ignite</module>
+        <module>my-spark</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -30,7 +34,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13</version>
             <scope>test</scope>
         </dependency>
 

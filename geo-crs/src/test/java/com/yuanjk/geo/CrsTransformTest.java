@@ -4,6 +4,7 @@ import org.geotools.geometry.jts.JTS;
 import org.geotools.geometry.jts.JTSFactoryFinder;
 import org.geotools.geometry.jts.WKTWriter2;
 import org.geotools.referencing.CRS;
+import org.geotools.referencing.ReferencingFactoryFinder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,7 @@ import org.opengis.referencing.operation.TransformException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.opengis.referencing.crs.CRSAuthorityFactory;
 
 import static org.junit.Assert.*;
 
@@ -56,6 +58,16 @@ public class CrsTransformTest {
 //        String epsgCode1 = "EPSG:4326";
 
     }
+
+    @Test
+    public void authorityTest() throws FactoryException {
+        CRSAuthorityFactory factory = ReferencingFactoryFinder.getCRSAuthorityFactory("EPSG", null);
+
+        factory.getAuthority().getIdentifiers().forEach(i -> System.out.println(i));
+
+//        CoordinateReferenceSystem crs = factory.createCoordinateReferenceSystem("4326");
+    }
+
 
     @Test
     public void crsToWktFormat() {
