@@ -12,6 +12,7 @@
         <module>cim-util</module>
         <module>ignite-test</module>
         <module>geo-crs</module>
+        <module>data-util</module>
     </modules>
     <packaging>pom</packaging>
 
