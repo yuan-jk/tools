@@ -8,15 +8,16 @@
     <modules>
         <module>orientdb-hook</module>
         <module>orientdb-postgis-etl</module>
-        <module>general-utilities</module>
-        <module>cim-util</module>
+        <!--        <module>general-utilities</module>-->
+        <!--        <module>cim-util</module>-->
         <module>ignite-test</module>
         <module>geo-crs</module>
         <module>data-util</module>
         <module>json-util</module>
         <module>orient-kafka-hook</module>
-        <module>my-ignite</module>
+        <!--        <module>my-ignite</module>-->
         <module>my-spark</module>
+        <module>calcite-test</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -84,15 +85,26 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
+        <!--        <repository>-->
+        <!--            <id>postgis</id>-->
+        <!--            <url>http://repo.orbisgis.org/</url>-->
+        <!--            <snapshots>-->
+        <!--                <enabled>false</enabled>-->
+        <!--            </snapshots>-->
+        <!--            <releases>-->
+        <!--                <enabled>true</enabled>-->
+        <!--            </releases>-->
+        <!--        </repository>-->
+
         <repository>
-            <id>postgis</id>
-            <url>http://repo.orbisgis.org/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>central1</id>
             <releases>
                 <enabled>true</enabled>
             </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
     </repositories>
 </project>

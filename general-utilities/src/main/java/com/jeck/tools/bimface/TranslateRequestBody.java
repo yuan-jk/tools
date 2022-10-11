@@ -3,7 +3,6 @@ package com.jeck.tools.bimface;
 import com.alibaba.fastjson.JSONObject;
 import com.bimface.sdk.bean.request.translate.TranslateRequest;
 import com.bimface.sdk.bean.request.translate.TranslateSource;
-import com.glodon.pcop.cim.engine.dataServiceEngine.dataMart.Fact;
 
 public class TranslateRequestBody extends TranslateRequest {
     private JSONObject config;

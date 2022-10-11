@@ -81,9 +81,14 @@ public class CrsTransformTest {
     public void findMathTransform() throws ParseException, FactoryException, TransformException {
 
 //        String wkt = "POINT (106.711991 29.562189)";
-        String wkt = "POINT (29.562189 106.711991)";
-        String sourceCrs = "epsg:4490";
-        String targetCrs = "epsg:4545";
+//        String wkt = "POINT (29.562189 106.711991)";
+//        String sourceCrs = "epsg:4490";
+//        String targetCrs = "epsg:4545";
+
+//        String wkt = "POINT (128.81165413300005 45.83723777600005)";
+        String wkt = "POINT (45.83723777600005 128.81165413300005)";
+        String sourceCrs = "epsg:4326";
+        String targetCrs = "epsg:4552";
 
         GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory(null);
 

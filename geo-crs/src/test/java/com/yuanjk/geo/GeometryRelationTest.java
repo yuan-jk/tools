@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
+import org.locationtech.jts.io.WKTWriter;
 
 /**
  * @author yuanjk
@@ -82,7 +84,6 @@ public class GeometryRelationTest {
         System.out.println("line1 overlap polygon: " + line1.overlaps(polygon));
 
 
-
         String lineWkt2 = "LINESTRING(0 1, 1 1)";
 
         Geometry line2 = GeometryRelation.readGeometryFromWkt(lineWkt2);
@@ -120,4 +121,30 @@ public class GeometryRelationTest {
         System.out.println("line2 within polygon: " + line2.within(polygon));
         System.out.println("line2 overlap polygon: " + line2.overlaps(polygon));
     }
+
+
+    @Test
+    public void interiorPoint() throws ParseException {
+        String[] wkts = {"LineString (500875.63449555408442393 263285.8051769407466054, 504307.95743272663094103 " +
+                "263810.10317444847896695, 504222.60659592307638377 261170.32372188055887818, 502046.16025743173668161 " +
+                "262426.20032056182390079)",
+                "LineString (498851.60036564059555531 263834.48912782093975693, 502942.34404386935057119 " +
+                        "265608.56723566679283977)",
+        "LineString (500278.1786379290279001 260213.17505201185122132, 503905.58920208120252937 260853.30632803868502378, " +
+                "505832.07951850490644574 258390.32503742107655853, 507283.04374416579958051 261548.30599915358470753, " +
+                "509270.49894402059726417 260615.54328265727963299)"};
+
+        WKTReader reader = new WKTReader();
+        WKTWriter writer = new WKTWriter();
+
+        for (String wkt : wkts) {
+            System.out.println("source: " + wkt);
+            Geometry geometry = reader.read(wkt);
+
+            System.out.println("centroid: " + writer.write(geometry.getCentroid()));
+            System.out.println("interior point: " + writer.write(geometry.getInteriorPoint()));
+        }
+    }
+
+
 }
