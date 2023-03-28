@@ -18,6 +18,7 @@
         <!--        <module>my-ignite</module>-->
         <module>my-spark</module>
         <module>calcite-test</module>
+        <module>arrow-flight</module>
     </modules>
     <packaging>pom</packaging>
 

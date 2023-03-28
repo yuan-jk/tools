@@ -14,7 +14,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <geotools.version>25.0</geotools.version>
+        <geotools.version>27.2</geotools.version>
     </properties>
 
     <dependencies>
@@ -56,6 +56,13 @@
             <version>4.11</version>
             <scope>compile</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.4</version>
+        </dependency>
+
     </dependencies>
 
     <repositories>

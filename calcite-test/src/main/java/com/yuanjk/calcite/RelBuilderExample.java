@@ -1,16 +1,10 @@
 package com.yuanjk.calcite;
 
-/**
- * 类<code>Doc</code>用于：TODO
- *
- * @author yuanjk
- * @version 1.0
- */
 import org.apache.calcite.plan.RelOptUtil;
 import org.apache.calcite.rel.RelNode;
 import org.apache.calcite.rel.core.JoinRelType;
 import org.apache.calcite.sql.fun.SqlStdOperatorTable;
-import org.apache.calcite.test.RelBuilderTest;
+//import org.apache.calcite.test.RelBuilderTest;
 import org.apache.calcite.tools.FrameworkConfig;
 import org.apache.calcite.tools.RelBuilder;
 
@@ -32,7 +26,8 @@ public class RelBuilderExample {
     public void runAllExamples() {
         // Create a builder. The config contains a schema mapped
         // to the SCOTT database, with tables EMP and DEPT.
-        final FrameworkConfig config = RelBuilderTest.config().build();
+        final FrameworkConfig config = null;
+//        final FrameworkConfig config = RelBuilderTest.config().build();
         final RelBuilder builder = RelBuilder.create(config);
         for (int i = 0; i < 4; i++) {
             doExample(builder, i);
