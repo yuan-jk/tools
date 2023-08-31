@@ -27,3 +27,4 @@
 /ignite/work/
 /my-spark/my-spark-0.0.1-SNAPSHOT.jar
 *.tsv
+/output/

@@ -19,6 +19,7 @@
         <module>my-spark</module>
         <module>calcite-test</module>
         <module>arrow-flight</module>
+        <module>jsprit-example</module>
     </modules>
     <packaging>pom</packaging>
 
