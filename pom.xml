@@ -15,11 +15,11 @@
         <module>data-util</module>
         <module>json-util</module>
         <module>orient-kafka-hook</module>
-        <!--        <module>my-ignite</module>-->
         <module>my-spark</module>
         <module>calcite-test</module>
         <module>arrow-flight</module>
         <module>jsprit-example</module>
+        <module>jts-example</module>
     </modules>
     <packaging>pom</packaging>
 
