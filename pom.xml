@@ -20,6 +20,7 @@
         <module>arrow-flight</module>
         <module>jsprit-example</module>
         <module>jts-example</module>
+        <module>parquet-format</module>
     </modules>
     <packaging>pom</packaging>
 
